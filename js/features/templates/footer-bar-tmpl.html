@@ -1,0 +1,45 @@
+<footer class="footer">
+
+    <div class="container">
+        <div class="row">
+            <div class="one-third column">
+                <h1 ng-click="toggleSteamSearchBox()" class="platform-text">STEAM</h1>
+                <div class="platform-container">
+                <div class="flex-it">
+                <input type="text" placeholder="search" ng-show="toggleSteamFooterSearch" ng-model="footerSteamSearch"></input>
+              </div>
+                <ul class="steamUl">
+                    <li ng-click="highlightVisualizer(); openGameInVisualizer( game.title )" ng-repeat="game in steamGames | filter: footerSteamSearch" class="steamLi">{{ game.title }}
+                        <img ng-src="{{ game.emblem }}" width="32px" height="32px"></li>
+                </ul>
+              </div>
+            </div>
+            <div class="one-third column">
+                <h1 ng-click="toggleXboxSearchBox()" class="platform-text">XBOX</h1>
+                <div class="platform-container">
+                <div class="flex-it">
+                <input type="text" placeholder="search" ng-show="toggleXboxFooterSearch" ng-model="footerXboxSearch"></input>
+              </div>
+                <ul class="xboxUl">
+                    <li ng-click="openGameInVisualizer( game.title )" ng-repeat="game in xboxGames | filter: footerXboxSearch" class="xboxLi">{{ game.title }}
+                        <img ng-src="{{ game.emblem }}" width="32px" height="32px"></li>
+                </ul>
+              </div>
+            </div>
+            <div class="one-third column">
+                <h1 ng-click="togglePlaystationSearchBox()" class="platform-text">PLAYSTATION</h1>
+                <div class="platform-container">
+                <div class="flex-it">
+                <input type="text" placeholder="search" ng-show="togglePlaystationFooterSearch" ng-model="footerPlaystationSearch"></input>
+              </div>
+                <ul class="playstationUl">
+                   <li ng-click="openGameInVisualizer( game.title )" ng-repeat="game in playstationGames | filter: footerPlaystationSearch" class="playstationLi">{{ game.title }}
+                        <img ng-src="{{ game.emblem }}" width="32px" height="32px"></li>
+                </ul>
+              </div>
+            </div>
+        </div>
+
+    </div>
+
+</footer>

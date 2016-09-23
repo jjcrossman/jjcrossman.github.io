@@ -1,0 +1,43 @@
+<header-bar
+ game-title="gameTitle"
+ game-platform="gamePlatform"
+ which-emblem="whichEmblem"
+ playing-style="playingStyle"
+ completed-style="completedStyle"
+ >
+ </header-bar>
+
+<main class="main-box">
+    <div class="add-game-box">
+      <div>
+        <div class="title-text-wrapper">
+            <p class="add-field-text">
+                title
+            </p>
+        </div>
+        <div class="title-field-wrapper">
+            <input ng-model="gameTitle" type="text" name="game-title-field" placeholder="videogame's title"></input>
+        </div>
+      </div>
+      <div>
+        <div class="platform-text-wrapper">
+            <p class="add-field-text">
+                platform
+            </p>
+        </div>
+        <div class="platform-field-wrapper">
+            <input ng-model="gamePlatform" type="text" name"platform-field" placeholder="videogame's platform"></input>
+        </div>
+      </div>
+        <div class="emblem-wrapper">
+            <div ng-style="playingStyle" ng-click="setPlayingEmblem()" class="playing-wrapper"></div>
+            <div ng-style="completedStyle" ng-click="setCompletedEmblem()" class="completed-wrapper"></div>
+        </div>
+    </div>
+    <div class="submit-game-button-wrapper">
+        <button ng-click="addGameEntryToPlatformBox()" id="submit-game-button" class="button-primary" type="button" name="addGameButton">Add Game</button>
+
+    </div>
+    <span ng-show="invalidEntry">Please complete all fields and select an emblem</span>
+</main>
+<footer-bar></footer-bar>

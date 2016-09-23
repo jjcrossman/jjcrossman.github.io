@@ -1,0 +1,19 @@
+<header-bar></header-bar>
+<main class="main-box">
+  <div class="history-list-box">
+    <p class="history-search-title">
+      -search-
+    </p>
+    <input class="history-search" ng-hide="historyEmpty" type="text" placeholder="Search for game" ng-model="gameSearch"></input>
+    <div class="history-list-wrapper">
+      <div ng-show="historyEmpty">
+        There's nothing here yet. <a class="white-link" ui-sref="add" ng-click="removeHighlight()">Add games</a> to see something on this page.
+      </div>
+    <ul class="game-text">
+      <li ng-click="highlightVisualizer(); openGameInVisualizer( game.title )" ng-repeat="game in games | filter: gameSearch"><span class="history-li">{{ game.title }}</span><img ng-src="{{ game.emblem }}" width="32px" height="32px"> - {{ game.dateAdded }}</li>
+
+    </ul>
+  </div>
+  </div>
+</main>
+<footer-bar></footer-bar>

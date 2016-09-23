@@ -1,0 +1,20 @@
+<header class="header">
+  <div class="nav-wrapper">
+    <div class="visualizer-wrapper">
+        <a ng-click="highlightVisualizer()" ui-sref="visualizer" class="header-link"><h1 class="nav-text" ng-class="{highlightnav: visualizerHl}">VISUALIZER</h1></a>
+    </div>
+
+    <div  id="blankAddGame" class="full-logo-wrapper">
+        <div class="logo-wrapper">
+            <a ng-click="unHighlight()" class="header-link" ui-sref="add"><img class="logo" src="./styles/images/LogoShadow.png" draggable="false"></a>
+        </div>
+        <div class="logo-text-wrapper">
+            <a ng-click="unHighlight()" class="header-link" ui-sref="add"><h1 class="logo-text">Game</h1></a>
+        </div>
+    </div>
+    <div class="history-wrapper">
+        <a ng-click="highlightHistory()" ui-sref="history" class="header-link"><h1 class="nav-text" ng-class="{highlightnav: historyHl}">HISTORY</h1></a>
+    </div>
+  </div>
+
+</header>

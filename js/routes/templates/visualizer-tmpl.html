@@ -1,0 +1,57 @@
+<header-bar></header-bar>
+
+<main class="visualizer-box">
+<div class="left-column-wrapper">
+  <div class="game-description-wrapper">
+    <div class="game-description-title-wrapper">
+    <h6 id="game-description-header">Description for <span class="white">{{ gameName }}</span>({{ gameDate }})</h6>
+  </div>
+  <div class="game-description">
+  <p class="game-text">
+    {{ gameDescription }}
+  </p>
+</div>
+  </div>
+
+  <div class="game-news-wrapper">
+    <div class="game-news-title-wrapper">
+    <h6 id="game-news-header">Related Videos from <a target="_blank" class="white-linkk" href="http://www.giantbomb.com">Giant Bomb</a></h6>
+  </div>
+  <div class="game-news">
+    <p class="game-text">
+      <a ng-repeat="video in videoObjs" ng-href="{{ video.url }}" class="white-linkk">{{ video.name }}</a>
+    </p>
+  </div>
+  </div>
+</div>
+<div class="center-column-wrapper">
+  <div class="game-thumbnail">
+<img ng-src="{{ gameThumbnail }}" class="game-thumbnail-img" draggable="false">
+  </div>
+  <div class="youtube-box">
+    <div></div>
+  </div>
+</div>
+<div class="right-column-wrapper">
+
+  <div class="user-notes-display-wrapper">
+    <div class="user-notes-title-wrapper">
+      <h5 class="user-notes-title">Personal Notes for <span class="white">{{ gameName }}</span></h5>
+    </div>
+    <div class="user-notes-display">
+
+      <ul class="user-notes-styling" ng-repeat="note in gameNotes track by $index">
+        <li>{{ note }}</li>
+      </ul>
+
+  </div>
+  </div>
+  <div class="user-notes-entry-wrapper">
+    <div class="user-notes-entry">
+    <textarea ng-model="gameNoteEntryText" maxlength="1500" class="user-notes-entry-field" name="user-notes-field" placeholder="notes . . ."></textarea><div class="add-note-button-wrapper"><button ng-click="addNoteToGameObj( gameNoteEntryText )" id="user-notes-entry-button" class="button-primary">Add Note</button></div>
+  </div>
+</div>
+</div>
+</main>
+
+<footer-bar></footer-bar>

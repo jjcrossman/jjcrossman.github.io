@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html ng-app="addGame">
+    <head>
+
+        <meta charset="utf-8">
+        <title>Add Game</title>
+        <meta name="description" content="A videogame backlog manager and viewer">
+        <meta name="author" content="JJ Crossman">
+        <meta http-equiv="Content-Security-Policy" content="default-src *; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'; img-src * data: 'unsafe-inline'; connect-src * 'unsafe-inline'; frame-src *;">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link href="https://fonts.googleapis.com/css?family=Didact+Gothic|Oswald|Raleway:300,400,600" rel="stylesheet" type="text/css">
+
+
+        <link rel="stylesheet" href="./styles/css/normalize.css">
+        <link rel="stylesheet" href="./styles/css/skeleton.css">
+        <link rel="stylesheet" href="./styles/css/styles.css">
+
+        <link rel="icon" type="image/png" href="./styles/images/favicon.png">
+
+    </head>
+    <body>
+
+
+
+        <ui-view></ui-view>
+
+
+
+        <!-- SCRIPTS -->
+        <!-- Angular and UI-Router -->
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.js"></script>
+        <!-- App -->
+        <script type="text/javascript" src="./js/app.js"></script>
+        <!-- Directives -->
+        <script type="text/javascript" src="./js/features/directives/header-bar.js"></script>
+        <script type="text/javascript" src="./js/features/directives/footer-bar.js"></script>
+        <!-- Controllers -->
+        <script type="text/javascript" src="./js/routes/controllers/addCtrl.js"></script>
+        <script type="text/javascript" src="./js/routes/controllers/historyCtrl.js"></script>
+         <script type="text/javascript" src="./js/routes/controllers/visualizerCtrl.js"></script>
+        <script type="text/javascript" src="./js/features/controllers/headerCtrl.js"></script>
+        <script type="text/javascript" src="./js/features/controllers/footerCtrl.js"></script>
+        <!-- Services -->
+        <script type="text/javascript" src="./js/routes/services/addService.js"></script>
+        <script type="text/javascript" src="./js/routes/services/visualizerService.js"></script>
+        <script type="text/javascript" src="./js/routes/services/historyService.js"></script>
+        <script type="text/javascript" src="./js/features/services/footerService.js"></script>
+    </body>
+</html>
