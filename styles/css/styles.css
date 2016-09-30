@@ -6,7 +6,8 @@ html {
 }
 body {
   background-color: #C6C7B2;
-  height: 1vh;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .highlightnav {
