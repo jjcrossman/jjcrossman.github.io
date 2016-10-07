@@ -12,6 +12,7 @@ angular.module( 'addGame' )
       , whichEmblem: "="
       , playingStyle: "="
       , completedStyle: "="
+      , invalidEntry: "="
     }
     , link: function ( scope, elem, attr, ctrl ) {
 
@@ -21,6 +22,7 @@ angular.module( 'addGame' )
         scope.whichEmblem = "";
         scope.playingStyle = {};
         scope.completedStyle = {};
+        scope.invalidEntry = false;
       } );
 
     }

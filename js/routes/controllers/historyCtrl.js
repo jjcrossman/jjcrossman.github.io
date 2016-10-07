@@ -21,6 +21,7 @@ angular.module( 'addGame' )
 
  $scope.openGameInVisualizer = function ( gameTitle ) {
    visualizerService.getGameToQuery( gameTitle );
+   visualizerService.setGameTitleForFailedHttpRequest( gameTitle );
    gameTitle = gameTitle.toLowerCase().split(" ").join("");
    $state.go( 'visualizer', { game: gameTitle } );
  }

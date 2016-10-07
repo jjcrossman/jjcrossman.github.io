@@ -2,37 +2,48 @@ angular.module( 'addGame' )
 
 .service( 'historyService', function ( $http ) {
 
-  var historyHl = false;
-  var games = gamesList;
+  let historyHl = false;
+  let games = gamesList;
 
-  this.getHighlight = function ( boolean ) {
-    return historyHl;
-  }
+  this.getHighlight = () => historyHl
 
-  this.storeHistoryHl = function ( boolean ) {
-    historyHl = boolean;
-  }
+  this.storeHistoryHl = boolean => historyHl = boolean
 
-  this.getGames = function () {
-    return games;
-  }
+  this.getGames = () => games
 
-  this.sendUpdatedGameNotes = function ( gamesArray ) {
-    games = gamesArray;
-  }
+  this.sendUpdatedGameNotes = gamesArray => games = gamesArray
 
 
-  this.addGameToHistory = function ( obj ) {
-    //Add date information to obj
-    var timeObj = new Date();
-    var theDate = timeObj.toDateString();
-    var searchDate = theDate.split("");
-    var theYear;
-    var theMonth;
-    var theDay;
+  this.addGameToHistory = function( obj ) {
+    //Add date information to game Object, which is obj
+    //Creating formatted date from: theDay, theMonth, theYear
+    let theDate = obj.dateAdded;
+    // theDate = 'Sun Sep 18 2016'
 
     //conform theMonth
-    switch ( searchDate.slice( 4, 7 ).join("") ) {
+    let month = theDate.slice( 4, 7 );
+    let conformedMonth = this.conformTheMonth( month );
+
+    //conform theDay and theYear
+    let timeObj = new Date();
+    let dayLength = timeObj.getDate().toString().split("").length;
+    let dayAndYear = this.conformDayAndYear( dayLength, theDate );
+
+    let { theDay } = dayAndYear;
+    let { theYear } = dayAndYear;
+
+
+    //example: let theDate = 'Sun Sep 18 2016'
+    let conformedDate = `${ conformedMonth } ${ theDay }, ${ theYear }`;
+
+    //Add conformed date to game object and history service's games array.
+    //Example: 'September 18, 2016'
+    obj.dateAdded = conformedDate;
+    games.push( obj );
+  }
+
+  this.conformTheMonth = month => {
+    switch ( month ) {
       case "Jan":
         theMonth = "January";
         break;
@@ -72,36 +83,34 @@ angular.module( 'addGame' )
       default:
         break;
     }
+    return theMonth;
+  }
 
-    //conform theDay and theYear
-    var testDate = timeObj.getDate().toString().split("");
-
-    if ( testDate.length === 1 ) {
-      theDay = theDate.slice( 8, 9 );
-      theYear = theDate.slice( 10, 14 );
+  this.conformDayAndYear = ( dayLength, theDate ) => {
+    if ( dayLength === 1 ) {
+      return {
+        theDay: `${ theDate.slice( 9, 10 ) }`
+        , theYear: `${ theDate.slice( 11, 15 ) }`
+      }
     } else {
-      theDay = theDate.slice( 8, 10 );
-      theYear = theDate.slice( 11, 15 );
+      return {
+      theDay: `${ theDate.slice( 8, 10 ) }`
+      , theYear: `${ theDate.slice( 11, 15 ) }`
+      }
     }
-
-    //example: var theDate = 'Sun Sep 18 2016'
-    var conformedDate = theMonth + " " + theDay + ", " + theYear;
-
-    //Add dated game to history list
-    //Example: 'September 18, 2016'
-    obj.dateAdded = conformedDate;
-    console.log( obj );
-    games.push( obj );
   }
 
 } );
 
-var gamesList = [ {
+const gamesList = [ {
 title: 'Dishonored'
 , platform: 'steam'
 , emblem: '../../../styles/images/checkmarkEmblem.png'
 , dateAdded: 'September 18, 2016'
-, notes: ['Boy howdy, was that a game I done played. I had more fun than I can explain with adjectives appropriate for a general audience.', 'Boy howdy, was that a game I done played. I had more fun than I can explain with adjectives appropriate for a general audience.', 'Boy howdy, was that a game I done played. I had more fun than I can explain with adjectives appropriate for a general audience.', 'Boy howdy, was that a game I done played. I had more fun than I can explain with adjectives appropriate for a general audience.', 'Boy howdy, was that a game I done played. I had more fun than I can explain with adjectives appropriate for a general audience.', 'Boy howdy, was that a game I done played. I had more fun than I can explain with adjectives appropriate for a general audience.', 'Boy howdy, was that a game I done played. I had more fun than I can explain with adjectives appropriate for a general audience.', 'Boy howdy, was that a game I done played. I had more fun than I can explain with adjectives appropriate for a general audience.', 'Boy howdy, was that a game I done played. I had more fun than I can explain with adjectives appropriate for a general audience.', 'Boy howdy, was that a game I done played. I had more fun than I can explain with adjectives appropriate for a general audience.']
+, notes: ['Boy howdy, was that a game I done played. I had more fun than I can explain with adjectives appropriate for a general audience.']
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 }
 ,
 {
@@ -110,6 +119,9 @@ title: 'Guacamelee'
 , emblem: '../../../styles/images/playingEmblem.png'
 , dateAdded: 'March 12, 2015'
 , notes: ['Boy howdy, was that a game I done played. I had more fun than I can explain with adjectives appropriate for a general audience.']
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 }
 ,
 {
@@ -118,6 +130,9 @@ title: 'Shadow Warrior'
 , emblem: '../../../styles/images/checkmarkEmblem.png'
 , dateAdded: 'October 9, 2012'
 , notes: []
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 }
 ,
 {
@@ -126,6 +141,9 @@ title: 'Deus Ex: Mankind Divided'
 , emblem: '../../../styles/images/playingEmblem.png'
 , dateAdded: 'August 4, 2016'
 , notes: ['Boy howdy, was that a game I done played. I had more fun than I can explain with adjectives appropriate for a general audience.']
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 }
 ,
 {
@@ -134,6 +152,9 @@ title: 'Street Fighter V'
 , emblem: '../../../styles/images/playingEmblem.png'
 , dateAdded: 'February 27, 2016'
 , notes: []
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 }
 ,
 {
@@ -142,6 +163,9 @@ title: 'Counter strike: Global Offensive'
 , emblem: '../../../styles/images/checkmarkEmblem.png'
 , dateAdded: 'March 3, 2014'
 , notes: ['Boy howdy, was that a game I done played. I had more fun than I can explain with adjectives appropriate for a general audience.']
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 }
 ,
 {
@@ -150,6 +174,9 @@ title: 'Invisible, Inc.'
 , emblem: '../../../styles/images/checkmarkEmblem.png'
 , dateAdded: 'December 18, 2015'
 , notes: []
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 }
 ,
 {
@@ -158,6 +185,9 @@ title: 'Legend of Grimrock 2'
 , emblem: '../../../styles/images/playingEmblem.png'
 , dateAdded: 'June 14, 2014'
 , notes: []
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 }
 ,
 {
@@ -166,6 +196,9 @@ title: 'Mortal Kombat X'
 , emblem: '../../../styles/images/playingEmblem.png'
 , dateAdded: 'July 17, 2014'
 , notes: []
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 }
 ,
 {
@@ -174,6 +207,9 @@ title: 'Titanfall'
 , emblem: '../../../styles/images/checkmarkEmblem.png'
 , dateAdded: 'November 18, 2013'
 , notes: ['Boy howdy, was that a game I done played. I had more fun than I can explain with adjectives appropriate for a general audience.']
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 }
 ,
 {
@@ -182,6 +218,9 @@ title: 'Ryse: Son of Rome'
 , emblem: '../../../styles/images/checkmarkEmblem.png'
 , dateAdded: 'October 18, 2012'
 , notes: ['Boy howdy, was that a game I done played. I had more fun than I can explain with adjectives appropriate for a general audience.']
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 }
 ,
 {
@@ -190,6 +229,9 @@ title: 'Destiny'
 , emblem: '../../../styles/images/playingEmblem.png'
 , dateAdded: 'April 11, 2016'
 , notes: []
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 }
 ,
 {
@@ -198,6 +240,9 @@ title: 'Dead Rising 3'
 , emblem: '../../../styles/images/checkmarkEmblem.png'
 , dateAdded: 'May 10, 2012'
 , notes: ['Boy howdy, was that a game I done played. I had more fun than I can explain with adjectives appropriate for a general audience.']
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 }
 ,
 {
@@ -206,6 +251,9 @@ title: 'Forza Motorsport 5'
 , emblem: '../../../styles/images/playingEmblem.png'
 , dateAdded: 'December 18, 2015'
 , notes: []
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 }
 ,
 {
@@ -214,6 +262,9 @@ title: 'Overwatch'
 , emblem: '../../../styles/images/playingEmblem.png'
 , dateAdded: 'August 18, 2016'
 , notes: []
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 }
 ,
 {
@@ -222,6 +273,9 @@ title: 'LEGO Star Wars: The Force Awakens'
 , emblem: '../../../styles/images/checkmarkEmblem.png'
 , dateAdded: 'November 23, 2015'
 , notes: []
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 }
 ,
 {
@@ -230,6 +284,9 @@ title: 'Mirror\'s Edge: Catalyst'
 , emblem: '../../../styles/images/checkmarkEmblem.png'
 , dateAdded: 'May 30, 2016'
 , notes: ['Boy howdy, was that a game I done played. I had more fun than I can explain with adjectives appropriate for a general audience.']
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 }
 ,
 {
@@ -238,6 +295,9 @@ title: 'DOOM'
 , emblem: '../../../styles/images/playingEmblem.png'
 , dateAdded: 'February 19, 2016'
 , notes: []
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 }
 ,
 {
@@ -246,6 +306,9 @@ title: 'Firewatch'
 , emblem: '../../../styles/images/checkmarkEmblem.png'
 , dateAdded: 'October 12, 2015'
 , notes: ['Boy howdy, was that a game I done played. I had more fun than I can explain with adjectives appropriate for a general audience.']
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 }
 ,
 {
@@ -254,6 +317,9 @@ title: 'Gravity Rush Remastered'
 , emblem: '../../../styles/images/playingEmblem.png'
 , dateAdded: 'October 10, 2015'
 , notes: ['Boy howdy, was that a game I done played. I had more fun than I can explain with adjectives appropriate for a general audience.']
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 }
 ,
 {
@@ -262,6 +328,9 @@ title: 'Mad Max'
 , emblem: '../../../styles/images/checkmarkEmblem.png'
 , dateAdded: 'August 25, 2015'
 , notes: []
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 }
 ,
 {
@@ -270,4 +339,7 @@ title: 'The Talos Principle'
 , emblem: '../../../styles/images/playingEmblem.png'
 , dateAdded: 'September 30, 2015'
 , notes: []
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 } ];

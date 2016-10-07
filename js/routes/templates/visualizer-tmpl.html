@@ -1,4 +1,12 @@
-<header-bar></header-bar>
+<header-bar
+ game-title="gameTitle"
+ game-platform="gamePlatform"
+ which-emblem="whichEmblem"
+ playing-style="playingStyle"
+ completed-style="completedStyle"
+ invalid-entry="invalidEntry"
+ >
+ </header-bar>
 
 <main class="visualizer-box">
 <div class="left-column-wrapper">
@@ -12,7 +20,6 @@
   </p>
 </div>
   </div>
-
   <div class="game-news-wrapper">
     <div class="game-news-title-wrapper">
     <h6 id="game-news-header">Related Videos from <a target="_blank" class="white-linkk" href="http://www.giantbomb.com">Giant Bomb</a></h6>
@@ -27,9 +34,6 @@
 <div class="center-column-wrapper">
   <div class="game-thumbnail">
 <img ng-src="{{ gameThumbnail }}" class="game-thumbnail-img" draggable="false">
-  </div>
-  <div class="youtube-box">
-    <div></div>
   </div>
 </div>
 <div class="right-column-wrapper">

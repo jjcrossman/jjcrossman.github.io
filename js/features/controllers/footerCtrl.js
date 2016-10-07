@@ -11,12 +11,12 @@ angular.module( 'addGame' )
   $scope.togglePlaystationFooterSearch = false;
   }
 
-  $scope.highlightVisualizer = function () {
+  $scope.highlightVisualizer = () => {
    visualizerService.storeVisualizerHl( true );
    historyService.storeHistoryHl( false );
   }
 
-  $scope.toggleSteamSearchBox = function () {
+  $scope.toggleSteamSearchBox = () => {
     if ( $scope.toggleSteamFooterSearch ) {
     $scope.toggleSteamFooterSearch = false;
     $scope.footerSteamSearch = "";
@@ -25,7 +25,7 @@ angular.module( 'addGame' )
     }
   }
 
-  $scope.toggleXboxSearchBox = function () {
+  $scope.toggleXboxSearchBox = () => {
     if ( $scope.toggleXboxFooterSearch ) {
     $scope.toggleXboxFooterSearch = false;
     $scope.footerXboxSearch = "";
@@ -34,7 +34,7 @@ angular.module( 'addGame' )
     }
   }
 
-  $scope.togglePlaystationSearchBox = function () {
+  $scope.togglePlaystationSearchBox = () => {
     if ( $scope.togglePlaystationFooterSearch ) {
     $scope.togglePlaystationFooterSearch = false;
     $scope.footerPlaystationSearch = "";
@@ -43,8 +43,10 @@ angular.module( 'addGame' )
     }
   }
 
-  $scope.openGameInVisualizer = function ( gameTitle ) {
+  $scope.openGameInVisualizer = gameTitle => {
+
     visualizerService.getGameToQuery( gameTitle );
+    visualizerService.setGameTitleForFailedHttpRequest( gameTitle );
     gameTitle = gameTitle.toLowerCase().split(" ").join("");
     $state.go( 'visualizer', { game: gameTitle } );
 

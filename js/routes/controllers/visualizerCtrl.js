@@ -30,6 +30,10 @@ angular.module( 'addGame' )
   $scope.videoObjs = [];
 
 
+$scope.getGameTitleForFailedHttpRequest = gameTitle => {
+    $scope.failedHttpGameTitle = gameTitle;
+}
+
 //If a game is searched, retrieve its notes
 $scope.retrieveNotes = function () {
 if ( $stateParams.game !== "" ) {
@@ -52,18 +56,23 @@ if ( $stateParams.game !== "" ) {
 }
 
 $scope.addNoteToGameObj = function ( noteText ) {
+  if ( $stateParams.game ) {
   $scope.gameNotes.push( noteText );
   $scope.targetGameForNotes.notes.push( noteText );
   $scope.gameNoteEntryText = "";
   //Store updated object in services
   historyService.sendUpdatedGameNotes( $scope.allGames );
   footerService.sendUpdatedGameNotes( $scope.allGames, $scope.whichPlatform );
+} else {
+  $scope.gameNoteEntryText = "";
+}
 
 }
 
 if ( $stateParams.game !== "" ) {
   visualizerService.getDescriptionForGame()
   .then( function ( result ) {
+    if (result) {
     $scope.gameName = result.name;
     $scope.gameDescription = result.deck;
     $scope.gameThumbnail = result.image.small_url;
@@ -73,17 +82,20 @@ if ( $stateParams.game !== "" ) {
     } else {
     var formattedDate = result.original_release_date.slice(5, 7) + "/" + result.original_release_date.slice(8, 10) + "/" + result.original_release_date.slice(0, 4);
     $scope.gameDate = formattedDate;
-  }
+    }
+    }
+    $scope.gameName = visualizerService.getGameTitleForFailedHttpRequest();
 } )
 
   .catch( function ( error ) {
-    console.error( "Error in Visualizer Controller: " + error );
+    console.error( "Use your own Giant Bomb API key (obtain one with a free account) to make the visualizer work: " + error );
   } );
 }
 
 if ( $stateParams.game !== "" ) {
   visualizerService.getVideosForGame()
   .then( function ( result ) {
+    if ( result ) {
     var count = result.number_of_total_results;
     $scope.videoObjs = [];
     if ( count === 0 ) {
@@ -92,11 +104,12 @@ if ( $stateParams.game !== "" ) {
     for ( var i = 0; i < count; i++ ) {
       $scope.videoObjs.push( { name: result.results[i].name, url: result.results[i].site_detail_url } );
     }
+    }
 
   } )
 
   .catch( function ( error ) {
-    console.error( "Error in Visualizer Controller: " + error );
+    console.error( "Use your own Giant Bomb API key (obtain one with a free account) to make the visualizer work: " + error );
   } );
 
 }

@@ -2,47 +2,44 @@ angular.module( 'addGame' )
 
 .service( 'footerService', function ( $http, historyService ) {
 
-    var steamGames = steamGamesList;
-    var xboxGames = xboxGamesList;
-    var playstationGames = playstationGamesList;
+    let steamGames = steamGamesList;
+    let xboxGames = xboxGamesList;
+    let playstationGames = playstationGamesList;
 
 
+  this.getSteamGames = () => steamGames
 
+  this.getXboxGames = () => xboxGames
 
-  this.getSteamGames = function () {
-    return steamGames;
-  }
+  this.getPlaystationGames = () => playstationGames
 
-  this.getXboxGames = function () {
-    return xboxGames;
-  }
-
-  this.getPlaystationGames = function () {
-    return playstationGames;
-  }
-
-  this.sendUpdatedGameNotes = function ( gamesArray, platform ) {
-    var newArr = [];
-    for ( var i = 0; i < gamesArray.length; i++ ) {
-      for ( var key in gamesArray[i] ) {
-        if ( gamesArray[i][key] === platform ) {
-          newArr.push( gamesArray[i] );
-        }
+  this.sendUpdatedGameNotes = ( gamesArray, platform ) => {
+    let newArr = [];
+    gamesArray.forEach( game => {
+      if ( game.sayPlatform() === platform ) {
+        newArr.push( game );
       }
+    } );
+
+
+    switch ( platform ) {
+      case "steam":
+        steamGames = newArr;
+        break;
+      case "xbox":
+        xboxGames = newArr;
+        break;
+      case "playstation":
+        playstationGames = newArr;
+        break;
+      default:
+        break;
     }
-    if ( platform === "steam" ) {
-      steamGames = newArr;
-    }
-    else if ( platform === "xbox" ) {
-      xboxGames = newArr;
-    }
-    else if ( platform === "playstation" ) {
-      playstationGames = newArr;
-    }
-    else {return;}
+    return;
+
   }
 
-  this.addGameEntry = function ( obj ) {
+  this.addGameEntry = obj => {
 
     switch ( obj.platform.toLowerCase().split(" ").join("") ) {
       case "pc":
@@ -82,12 +79,15 @@ angular.module( 'addGame' )
 
 } );
 
-var steamGamesList = [ {
+const steamGamesList = [ {
 title: 'Dishonored'
 , platform: 'steam'
 , emblem: '../../../styles/images/checkmarkEmblem.png'
 , dateAdded: 'September 18, 2016'
-, notes: [ 'Boy howdy, was that a game I done played. I had more fun than I can explain with adjectives appropriate for a general audience.', 'Boy howdy, was that a game I done played. I had more fun than I can explain with adjectives appropriate for a general audience.', 'Boy howdy, was that a game I done played. I had more fun than I can explain with adjectives appropriate for a general audience.', 'Boy howdy, was that a game I done played. I had more fun than I can explain with adjectives appropriate for a general audience.', 'Boy howdy, was that a game I done played. I had more fun than I can explain with adjectives appropriate for a general audience.', 'Boy howdy, was that a game I done played. I had more fun than I can explain with adjectives appropriate for a general audience.', 'Boy howdy, was that a game I done played. I had more fun than I can explain with adjectives appropriate for a general audience.', 'Boy howdy, was that a game I done played. I had more fun than I can explain with adjectives appropriate for a general audience.', 'Boy howdy, was that a game I done played. I had more fun than I can explain with adjectives appropriate for a general audience.', 'Boy howdy, was that a game I done played. I had more fun than I can explain with adjectives appropriate for a general audience.' ]
+, notes: ['Boy howdy, was that a game I done played. I had more fun than I can explain with adjectives appropriate for a general audience.']
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 }
 ,
 {
@@ -96,6 +96,9 @@ title: 'Guacamelee'
 , emblem: '../../../styles/images/playingEmblem.png'
 , dateAdded: 'March 12, 2015'
 , notes: ['Boy howdy, was that a game I done played. I had more fun than I can explain with adjectives appropriate for a general audience.']
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 }
 ,
 {
@@ -104,6 +107,9 @@ title: 'Shadow Warrior'
 , emblem: '../../../styles/images/checkmarkEmblem.png'
 , dateAdded: 'October 9, 2012'
 , notes: []
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 }
 ,
 {
@@ -112,6 +118,9 @@ title: 'Deus Ex: Mankind Divided'
 , emblem: '../../../styles/images/playingEmblem.png'
 , dateAdded: 'August 4, 2016'
 , notes: ['Boy howdy, was that a game I done played. I had more fun than I can explain with adjectives appropriate for a general audience.']
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 }
 ,
 {
@@ -120,6 +129,9 @@ title: 'Street Fighter V'
 , emblem: '../../../styles/images/playingEmblem.png'
 , dateAdded: 'February 27, 2016'
 , notes: []
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 }
 ,
 {
@@ -128,6 +140,9 @@ title: 'Counter strike: Global Offensive'
 , emblem: '../../../styles/images/checkmarkEmblem.png'
 , dateAdded: 'March 3, 2014'
 , notes: ['Boy howdy, was that a game I done played. I had more fun than I can explain with adjectives appropriate for a general audience.']
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 }
 ,
 {
@@ -136,6 +151,9 @@ title: 'Invisible, Inc.'
 , emblem: '../../../styles/images/checkmarkEmblem.png'
 , dateAdded: 'December 18, 2015'
 , notes: []
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 }
 ,
 {
@@ -144,14 +162,20 @@ title: 'Legend of Grimrock 2'
 , emblem: '../../../styles/images/playingEmblem.png'
 , dateAdded: 'June 14, 2014'
 , notes: []
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 } ];
 
-var xboxGamesList = [ {
+const xboxGamesList = [ {
 title: 'Mortal Kombat X'
 , platform: 'xbox'
 , emblem: '../../../styles/images/playingEmblem.png'
 , dateAdded: 'July 17, 2014'
 , notes: []
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 }
 ,
 {
@@ -160,6 +184,9 @@ title: 'Titanfall'
 , emblem: '../../../styles/images/checkmarkEmblem.png'
 , dateAdded: 'November 18, 2013'
 , notes: ['Boy howdy, was that a game I done played. I had more fun than I can explain with adjectives appropriate for a general audience.']
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 }
 ,
 {
@@ -168,6 +195,9 @@ title: 'Ryse: Son of Rome'
 , emblem: '../../../styles/images/checkmarkEmblem.png'
 , dateAdded: 'October 18, 2012'
 , notes: ['Boy howdy, was that a game I done played. I had more fun than I can explain with adjectives appropriate for a general audience.']
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 }
 ,
 {
@@ -176,6 +206,9 @@ title: 'Destiny'
 , emblem: '../../../styles/images/playingEmblem.png'
 , dateAdded: 'April 11, 2016'
 , notes: []
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 }
 ,
 {
@@ -184,6 +217,9 @@ title: 'Dead Rising 3'
 , emblem: '../../../styles/images/checkmarkEmblem.png'
 , dateAdded: 'May 10, 2012'
 , notes: ['Boy howdy, was that a game I done played. I had more fun than I can explain with adjectives appropriate for a general audience.']
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 }
 ,
 {
@@ -192,14 +228,20 @@ title: 'Forza Motorsport 5'
 , emblem: '../../../styles/images/playingEmblem.png'
 , dateAdded: 'December 18, 2015'
 , notes: []
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 } ];
 
-var playstationGamesList = [ {
+const playstationGamesList = [ {
 title: 'Overwatch'
 , platform: 'playstation'
 , emblem: '../../../styles/images/playingEmblem.png'
 , dateAdded: 'August 18, 2016'
 , notes: []
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 }
 ,
 {
@@ -208,6 +250,9 @@ title: 'LEGO Star Wars: The Force Awakens'
 , emblem: '../../../styles/images/checkmarkEmblem.png'
 , dateAdded: 'November 23, 2015'
 , notes: []
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 }
 ,
 {
@@ -216,6 +261,9 @@ title: 'Mirror\'s Edge: Catalyst'
 , emblem: '../../../styles/images/checkmarkEmblem.png'
 , dateAdded: 'May 30, 2016'
 , notes: ['Boy howdy, was that a game I done played. I had more fun than I can explain with adjectives appropriate for a general audience.']
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 }
 ,
 {
@@ -224,6 +272,9 @@ title: 'DOOM'
 , emblem: '../../../styles/images/playingEmblem.png'
 , dateAdded: 'February 19, 2016'
 , notes: []
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 }
 ,
 {
@@ -232,6 +283,9 @@ title: 'Firewatch'
 , emblem: '../../../styles/images/checkmarkEmblem.png'
 , dateAdded: 'October 12, 2015'
 , notes: ['Boy howdy, was that a game I done played. I had more fun than I can explain with adjectives appropriate for a general audience.']
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 }
 ,
 {
@@ -240,6 +294,9 @@ title: 'Gravity Rush Remastered'
 , emblem: '../../../styles/images/playingEmblem.png'
 , dateAdded: 'October 10, 2015'
 , notes: ['Boy howdy, was that a game I done played. I had more fun than I can explain with adjectives appropriate for a general audience.']
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 }
 ,
 {
@@ -248,6 +305,9 @@ title: 'Mad Max'
 , emblem: '../../../styles/images/checkmarkEmblem.png'
 , dateAdded: 'August 25, 2015'
 , notes: []
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 }
 ,
 {
@@ -256,4 +316,7 @@ title: 'The Talos Principle'
 , emblem: '../../../styles/images/playingEmblem.png'
 , dateAdded: 'September 30, 2015'
 , notes: []
+, sayPlatform () {
+  return this.platform.toLowerCase();
+}
 } ];
