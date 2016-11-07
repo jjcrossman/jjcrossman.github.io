@@ -20,7 +20,7 @@
     "url": "https://github.com/jjcrossman/jjcrossman.github.io/issues"
   },
   "homepage": "https://github.com/jjcrossman/jjcrossman.github.io#readme",
-  "devDependencies": {
+  "dependencies": {
     "axios": "^0.15.2",
     "body-parser": "^1.15.2",
     "express": "^4.14.0"
