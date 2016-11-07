@@ -4,7 +4,7 @@ const { json } = require( "body-parser" );
 const port = process.env.PORT ? process.env.PORT : 4000;
 
 app.use( json() );
-app.use( express.static( `${ __dirname }/../addgame` ) );
+app.use( express.static( `${ __dirname }/addgame` ) );
 
 require( "./features/GiantBomb/GiantBombRoutes.js" )( app );
 
