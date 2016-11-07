@@ -25,10 +25,7 @@ angular.module( 'addGame' )
 
   this.getDescriptionForGame = () => {
 
-    return $http( {
-      method: 'GET'
-      , url: `${ giantBombQueryUrl }"${ gameDescriptionQuery }"&resources=game`
-    } )
+    return $http.get( `/api/description/${ gameDescriptionQuery }` )
     .then( response => {
       if ( response.data.number_of_total_results === 0 ) {
         let badSearchObj = {
@@ -42,22 +39,19 @@ angular.module( 'addGame' )
       return response.data.results[0];
     } )
     .catch( error => {
-      console.error( "Use your own Giant Bomb API key (obtain one with a free account) to make the visualizer work: " + error );
+      console.error( error );
     } );
 
   }
 
   this.getVideosForGame = function () {
 
-    return $http( {
-      method: 'GET'
-      , url: `${ giantBombQueryUrl }"${gameVideosQuery}"&resources=video`
-    } )
+    return $http.get( `api/video/${ gameVideosQuery }` )
     .then( response => {
       return response.data;
     } )
     .catch( error => {
-      console.error( "Use your own Giant Bomb API key (obtain one with a free account) to make the visualizer work: " + error );
+      console.error( error );
     } );
 
   }

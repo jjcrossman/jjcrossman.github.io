@@ -1,0 +1,24 @@
+{
+  "name": "videogame-backlog",
+  "version": "1.0.0",
+  "description": "a videogame-backlog manager",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jjcrossman/jjcrossman.github.io.git"
+  },
+  "author": "JJ Crossman",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/jjcrossman/jjcrossman.github.io/issues"
+  },
+  "homepage": "https://github.com/jjcrossman/jjcrossman.github.io#readme",
+  "devDependencies": {
+    "axios": "^0.15.2",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0"
+  }
+}

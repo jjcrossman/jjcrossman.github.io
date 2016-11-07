@@ -88,7 +88,7 @@ if ( $stateParams.game !== "" ) {
 } )
 
   .catch( function ( error ) {
-    console.error( "Use your own Giant Bomb API key (obtain one with a free account) to make the visualizer work: " + error );
+    console.error( error );
   } );
 }
 
@@ -109,7 +109,7 @@ if ( $stateParams.game !== "" ) {
   } )
 
   .catch( function ( error ) {
-    console.error( "Use your own Giant Bomb API key (obtain one with a free account) to make the visualizer work: " + error );
+    console.error( error );
   } );
 
 }
