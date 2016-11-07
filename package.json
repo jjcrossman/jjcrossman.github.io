@@ -1,10 +1,14 @@
 {
-  "name": "videogame-backlog",
+  "name": "addgame",
   "version": "1.0.0",
   "description": "a videogame-backlog manager",
   "main": "server.js",
   "scripts": {
+    "start": "node server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": "6.7.0"
   },
   "repository": {
     "type": "git",

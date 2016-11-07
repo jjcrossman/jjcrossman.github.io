@@ -1,8 +1,7 @@
 const express = require( "express" );
 const app = express();
-const config = "./config/config.js";
 const { json } = require( "body-parser" );
-const port = 4000;
+const port = process.env.PORT ? process.env.PORT : 4000;
 
 app.use( json() );
 app.use( express.static( `${ __dirname }/../addgame` ) );
