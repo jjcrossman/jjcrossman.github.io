@@ -1,5 +1,5 @@
 const axios = require( "axios" );
-const apiKey = process.env.APIKEY ? process.env.APIKEY : config.giantBomb.apiKey;
+const apiKey = process.env.APIKEY ? process.env.APIKEY : "";
 const giantBombQueryUrl = `http://www.giantbomb.com/api/search?api_key=${ apiKey }&format=json&query=`;
 
 module.exports = {
