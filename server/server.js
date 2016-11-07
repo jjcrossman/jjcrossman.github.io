@@ -4,6 +4,7 @@ const { json } = require( "body-parser" );
 const port = process.env.PORT ? process.env.PORT : 4000;
 
 app.use( json() );
+app.use( favicon( `${ __dirname }/../addgame/styles/images/favicon.ico`) );
 app.use( express.static( `${ __dirname }/../addgame` ) );
 
 require( "./features/GiantBomb/GiantBombRoutes.js" )( app );
